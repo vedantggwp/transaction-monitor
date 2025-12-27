@@ -1,6 +1,17 @@
 from faker import Faker
 import random
 from datetime import datetime, timedelta
+import csv
+
+def save_to_csv(transactions, filename='transactions.csv'):
+    """Save transactions to CSV file"""
+    
+    with open(filename, 'w', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=['id', 'date', 'merchant', 'category', 'amount', 'account_holder'])
+        writer.writeheader()
+        writer.writerows(transactions)
+    
+    print(f"\n💾 Saved {len(transactions)} transactions to {filename}")
 
 fake = Faker('en_GB') # UK locale for UK data
 
@@ -57,6 +68,17 @@ def flag_suspicious(transactions):
     else:
         print("\n✅ No suspicious transactions detected")
 
+
+def save_to_csv(transactions, filename='transactions.csv'):
+    """Save transactions to CSV file"""
+    
+    with open(filename, 'w', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=['id', 'date', 'merchant', 'category', 'amount', 'account_holder'])
+        writer.writeheader()
+        writer.writerows(transactions)
+    
+    print(f"\n💾 Saved {len(transactions)} transactions to {filename}")
+
 if __name__ == "__main__":
     # Generate transactions
     transactions = generate_transactions(100)
@@ -66,3 +88,7 @@ if __name__ == "__main__":
     
     # Flag suspicious ones
     flag_suspicious(transactions)
+
+    # Save transactions to CSV file
+    save_to_csv(transactions)
+    
